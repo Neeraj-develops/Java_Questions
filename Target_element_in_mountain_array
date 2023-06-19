@@ -1,0 +1,59 @@
+package BinarySearchrevision;
+
+public class FindTargetInMountainArray {
+    public static void main(String[] args) {
+        int[] arr= {1,2,3,5,6,3,1};
+        int ans = mountainArray(arr, 2);
+        System.out.println(ans);
+    }
+    public static int mountainArray(int[] arr,int t){
+        int s= 0;
+        int e= arr.length-1;
+        int peak= 0;
+
+        while(s<=e){
+            int mid= (s+e)/2;
+            if (arr[mid]>arr[mid-1] && arr[mid]>arr[mid+1]){
+                peak= mid;
+                break;
+            } else if (arr[mid]>arr[mid-1] && arr[mid]<arr[mid+1]) {
+                s=mid;
+            } else if (arr[mid]<arr[mid-1] && arr[mid]>arr[mid+1]) {
+                e=mid;
+            }
+        }
+
+        int one= binarySearch(arr, 0, peak, t);
+        int two= binarySearch(arr, peak,arr.length-1 ,t);
+
+        if (one==-1 && two!=-1 ){
+            return two;
+        }else if (two==-1 && one!=-1){
+            return one;
+        }
+        if(two==one){
+            return -1;
+        }
+
+        if (one<two){
+            return one;
+        }else {
+            return two;
+        }
+
+    }
+    public static int binarySearch(int[]arr,int s,int e, int tar){
+
+        while(s <=e ){
+            int mid = (s + e)/2;
+            if (tar==arr[mid]){
+                return mid;
+            } else if (tar>arr[mid]) {
+                s= mid+1;
+            }else {
+                e= mid-1;
+            }
+        }
+        return -1;
+    }
+}
