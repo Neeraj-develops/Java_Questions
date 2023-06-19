@@ -1,0 +1,256 @@
+package com.Linkedlist.customeLinkedlist.question1;
+
+// Q1. Delete Node when the Node itself is given
+// Q2. find the nth node from the end of linkedlist
+// Q3. find the nth node from the end of linkedlist in one traversal.
+// Q4. above question but remove that node this time.
+// Q5. intersection of the two linked list
+// Q6. remove the duplicate node.
+// Q7. merging 2 sorted linkedlist in order.
+// Q8. weather a linkedlist is cyclic
+// Q9. lenght of the cyclic list
+// Q10. find the starting node of the cyclic list
+
+public class Question1 {
+    Node head;
+
+    public void add(int val){
+       Node node= new Node(val);
+        if (head == null){
+            head=node;
+        }
+       Node temp = head;
+        Node add=null;
+        while(temp != null) {
+            if (temp != null){
+                add=temp;
+            }
+            temp=temp.next;
+        }
+        add.next=node;
+        node.next=null;
+    }
+
+    //// Q1. Delete Node when the Node itself is given
+    void deleteNode(Node node){
+        if (node.next==null){
+            node=null;
+        }else {
+            node.val= node.next.val;
+            node.next= node.next.next;
+        }
+
+    }
+
+    //Q2 find the nth node from the end of linkedlist.
+    public Node nthNode(int val){
+        Node temp= head;
+        int size= 0;
+        while(temp != null){
+            size++;
+            temp= temp.next;
+        }
+        int m= (size-val)+1;
+        temp= head;
+        for(int i=0;i<=m;i++){
+            temp=temp.next;
+        }
+        return temp;
+    }
+
+    //Q3. find the nth node from the end of linkedlist in one traversal.
+    public Node nthNode_2(int val){
+        Node fast = head;
+        Node slow= head;
+        for(int i=0; i<val;i++){
+            fast= fast.next;
+        }
+        while(fast!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        return slow;
+    }
+
+    // Q4. above question but remove that node this time.
+    public void nthNodeRemove(int val){
+        Node fast = head;
+        Node slow= head;
+        for(int i=0; i<val;i++){
+            fast= fast.next;
+        }
+        if (fast==null){
+            head= head.next;
+        }else{
+            while(fast.next!=null){
+                slow=slow.next;
+                fast=fast.next;
+            }
+            slow.next= slow.next.next;
+        }
+
+        // Q5. intersection of the two linked list
+//       public Node getIntersectionNode(Node headA, Node headB) {
+//            Node tempA= headA;
+//            Node tempB= headA;
+//            int m=0;
+//            int n=0;
+//            while(tempA != null){
+//                m++;
+//                tempA=tempA.next;
+//            }
+//            while(tempB!=null){
+//                n++;
+//                tempB=tempB.next;
+//            }
+//            tempA=headA;
+//            tempB=headB;
+//            if(m>n){
+//                int steps= m-n;
+//                for(int i = 1; i<=steps; i++){
+//                    tempA=tempA.next;
+//                }
+//            }else{
+//                int steps= n-m;
+//                for(int i = 1; i<=steps; i++){
+//                    tempB=tempB.next;
+//                }
+//            }
+//            while(tempA!=tempB){
+//                tempA=tempA.next;
+//                tempB=tempB.next;
+//            }
+//            return tempA;
+//        }
+//    };
+
+    }
+
+    //Q6. remove the duplicate node.
+    public  void removeDuplicate(){
+        Node temp= head;
+        while(temp.next != null){
+            if (temp.val == temp.next.val){
+                temp.next=temp.next.next;
+            }else{
+                temp= temp.next;
+            }
+        }
+    }
+
+    // Q7. merging 2 sorted linkedlist in order.
+
+    public static Question1 mergeTwo(Question1 l1, Question1 l2){
+        Node l = l1.head;
+        Node s= l2.head;
+
+        Question1 ans= new Question1();
+
+        while(l != null && s != null){
+            if (l.val > s.val){
+                ans.add(s.val);
+                s= s.next;
+            }else {
+                ans.add(l.val);
+                l= l.next;
+            }
+        }
+
+        while (l!= null){
+            ans.add(l.val);
+           l= l.next;
+        }
+        while (s!= null){
+            ans.add(s.val);
+            s= s.next;
+        }
+
+        return ans;
+    }
+
+ ////Q8 weather a linkedlist is cyclic
+    public boolean hasCycle() {
+        Node slow= head;
+        Node fast= head;
+
+        while(fast != null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
+
+            if(fast==slow){
+                return true;
+            }
+        }
+
+        return false ;
+    }
+
+///Q9 length of the cyclic list
+    public int lengthCycle() {
+        Node slow= head;
+        Node fast= head;
+
+        while(fast != null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
+
+            if(fast==slow){
+                Node temp = slow;
+                int count=0;
+                do {
+                    temp=temp.next;
+                    count +=1;
+                }while(temp == slow);
+
+                return count;
+            }
+        }
+
+        return 0;
+    }
+
+///Q9 find the starting Node of the linkedlist
+public int startofCycle() {
+        Node slow = head;
+        Node fast = head;
+        Node temp = head;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast == slow) {
+                while(temp == slow){
+                    temp=temp.next;
+                    slow=slow.next;
+                }
+                return temp.value;
+            }
+        }
+       return 0;
+    }
+
+
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.val + "->");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+
+
+    class Node{
+        int val;
+        Node next;
+
+        Node(int val){
+            this.val=val;
+        }
+    }
+
+
+
+}
