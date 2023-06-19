@@ -1,0 +1,27 @@
+package com.Recursion;
+//REMOVE ALL THE A FROM THE STRING 'bbaacada'
+public class StringQ1recursion {
+    public static void main(String[] args) {
+        String str= "babadaca";
+
+
+        String removed="";
+        int i=0;
+       String ans= remove_all_A(str,removed,i);
+        System.out.println(ans);
+    }
+    static String remove_all_A(String str,String removed, int i){
+        if(str.length() <= i){
+            return removed;
+        }
+
+        if (str.charAt(i)=='a'){
+          return   remove_all_A(str, removed, i+1);
+        }else{
+            removed=removed+ ""+str.charAt(i);
+          return   remove_all_A(str, removed, i+1);
+        }
+
+    }
+
+}
