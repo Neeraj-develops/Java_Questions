@@ -1,0 +1,38 @@
+package com.Recursion;
+
+import java.util.Arrays;
+
+public class QuickSortRecurssion {
+    public static void main(String[] args) {
+         int[] arr= {5,4,3,2,1};
+         quick_Sort(arr,0, arr.length-1);
+        System.out.println(Arrays.toString(arr));
+    }
+    static void quick_Sort(int[] arr, int start, int end){
+        if (start>=end){
+            return;
+        }
+        int s= start;
+        int e= end;
+        int mid= s+ (e-s)/2;
+        int pivot= arr[mid];
+        while(e>=s){
+            while(arr[s]<pivot){
+                s++;
+            }
+            while(arr[e]>pivot){
+                e--;
+            }
+            if(e>=s){
+                int temp= arr[e];
+                arr[e]= arr[s];
+                arr[s]=temp;
+                s++;
+                e--;
+            }
+
+        }
+        quick_Sort(arr, start,e);
+        quick_Sort(arr,s,end);
+    }
+}
