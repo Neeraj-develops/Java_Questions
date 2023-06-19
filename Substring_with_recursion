@@ -1,0 +1,38 @@
+package com.Recursion;
+///FIND THE SUBSET OF A STRING
+// ALSO PRINT THE ELEMENT WITH ARRAYLIST
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class SubstringQ1recursion {
+
+    public static void main(String[] args) {
+        String strin= "abc";
+        ArrayList<String> strlist= new ArrayList<>();
+        subset_WithArraylist("",strin ,strlist);
+        System.out.println(strlist);
+
+    }
+    static  void string_subset(String p, String str){
+        if(str.isEmpty()){
+            System.out.println(p);
+            return;
+        }
+        char ch= str.charAt(0);
+
+        string_subset(p+ch, str.substring(1));
+        string_subset(p, str.substring(1));
+    }
+
+
+    static void subset_WithArraylist(String p, String original, ArrayList<String> stn_list){
+        if (original.isEmpty()){
+            stn_list.add(p);
+            return;
+        }
+        char ch= original.charAt(0);
+        subset_WithArraylist(p+ch, original.substring(1),stn_list);
+        subset_WithArraylist(p, original.substring(1),stn_list);
+    }
+}
