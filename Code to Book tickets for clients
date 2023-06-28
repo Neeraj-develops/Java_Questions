@@ -1,0 +1,58 @@
+package com.NormalQuestions;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class TicketBookingApp {
+    static int count =0;
+    public static void main(String[] args) {
+        String[] arr= new String[3];
+
+        // TO SHOW THE NUMBER OF SEATS
+        System.out.println("Number of Tickets are" + " " + arr.length);
+
+        // FUNCTION TO DO THE TRICK
+        ticketBook(arr);
+
+        // TO CHANGE  NULL
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i]==null){
+                arr[i]= "seats are vacant";
+            }
+        }
+
+        System.out.println("members whose tickets are booked");
+        System.out.println(Arrays.toString(arr));
+
+    }
+    public static void ticketBook(String[] arr){
+        
+        if (count == arr.length){
+            System.out.println("😔 Sorry tickets are full, better luck next time.");
+            return;
+        }
+        Scanner inp= new Scanner(System.in);
+        System.out.print("To Book your tickets just type your name:"  + " ");
+        String input= inp.nextLine();
+
+        arr[count]=input;
+        count +=1;
+        System.out.println(input + " "+"Your ticket is booked successfully");
+
+        System.out.print("Do you want to Book more tickets Just type 'Y' or 'N' ->");
+        String input_2= inp.nextLine();
+        if ("YES".equals(input_2) ){
+            int seats= arr.length -count;
+            if (seats >1)System.out.println("only" + " " + seats + " " + "Tickets are left");
+            else    System.out.println("only" + " " + seats + " " + "Ticket is left");
+
+           ticketBook(arr);
+        }else{
+            return;
+        }
+
+
+
+    }
+
+}
